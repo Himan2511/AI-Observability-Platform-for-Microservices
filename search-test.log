@@ -1,0 +1,30 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.5)
+
+20:18:28.263 [main] INFO  [,] c.m.search.SearchServiceApplication - Starting SearchServiceApplication v1.0.0-SNAPSHOT using Java 25.0.3 with PID 43427 (/home/himan/Downloads/AI Observability Platform/AI-Observability-Platform/service-search/target/service-search-1.0.0-SNAPSHOT.jar started by himan in /home/himan/Downloads/AI Observability Platform/AI-Observability-Platform)
+20:18:28.270 [main] DEBUG [,] c.m.search.SearchServiceApplication - Running with Spring Boot v3.4.5, Spring v6.2.6
+20:18:28.271 [main] INFO  [,] c.m.search.SearchServiceApplication - No active profile set, falling back to 1 default profile: "default"
+20:18:29.448 [main] INFO  [,] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+20:18:29.457 [main] INFO  [,] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8082"]
+20:18:29.459 [main] INFO  [,] o.a.catalina.core.StandardService - Starting service [Tomcat]
+20:18:29.459 [main] INFO  [,] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.40]
+20:18:29.483 [main] INFO  [,] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+20:18:29.484 [main] INFO  [,] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1123 ms
+20:18:29.815 [main] INFO  [,] c.m.search.service.SearchService - Building in-memory search index with 100000 documents...
+20:18:32.674 [main] INFO  [,] c.m.search.service.SearchService - Index built: 100000 documents ready
+20:18:32.703 [main] INFO  [,] c.m.search.service.SearchService - SearchService initialised with 100000 documents
+20:18:33.531 [main] INFO  [,] o.s.b.a.e.web.EndpointLinksResolver - Exposing 15 endpoints beneath base path '/actuator'
+20:18:33.629 [main] INFO  [,] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8082"]
+20:18:33.643 [main] INFO  [,] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8082 (http) with context path '/'
+20:18:33.659 [main] INFO  [,] c.m.search.SearchServiceApplication - Started SearchServiceApplication in 6.157 seconds (process running for 6.597)
+20:18:47.153 [http-nio-8082-exec-1] INFO  [,] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+20:18:47.154 [http-nio-8082-exec-1] INFO  [,] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+20:18:47.156 [http-nio-8082-exec-1] INFO  [,] o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+20:18:47.317 [http-nio-8082-exec-2] INFO  [6a130fcf2c0ac708fb4837e58e363fd8,fb4837e58e363fd8] c.m.s.controller.SearchController - GET /search?q=technology&page=0&size=2
