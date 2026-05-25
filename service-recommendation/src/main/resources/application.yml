@@ -7,7 +7,7 @@ spring:
   data:
     redis:
       host: localhost
-      port: 6379
+      port: 6380   # Docker Redis mapped to 6380 (native Redis occupies 6379)
       timeout: 2000ms
   kafka:
     bootstrap-servers: localhost:9092

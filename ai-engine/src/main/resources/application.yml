@@ -5,11 +5,11 @@ spring:
   application:
     name: ai-engine
 
-  # PostgreSQL (configured for Phase 2 — left empty for Phase 1 scaffold)
+  # PostgreSQL + TimescaleDB (Docker container — port 5433 on host, native PG on 5432)
   datasource:
-    url: jdbc:postgresql://localhost:5432/observability
-    username: postgres
-    password: postgres
+    url: jdbc:postgresql://localhost:5433/observability_db
+    username: observability
+    password: observability123
     hikari:
       connection-timeout: 20000
       maximum-pool-size: 10
@@ -29,7 +29,7 @@ spring:
   data:
     redis:
       host: localhost
-      port: 6379
+      port: 6380   # Docker Redis mapped to 6380 (native Redis on 6379)
       timeout: 2000ms
 
   kafka:

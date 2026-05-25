@@ -1,0 +1,90 @@
+# ============================================================
+# Prometheus Configuration — AI Observability Platform
+# Phase 2: Data Infrastructure
+#
+# Scrapes /actuator/prometheus from all 4 Spring Boot services
+# running on the host machine (172.17.0.1 = Docker bridge gateway).
+#
+# Scrape interval: 15s (matches plan spec)
+# Evaluation interval: 30s (used for alerting rules in Phase 3)
+# ============================================================
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 30s
+  scrape_timeout: 10s
+  external_labels:
+    environment: 'development'
+    platform: 'ai-observability'
+
+# ── Alerting Rules (placeholder — populated in Phase 3) ────────────────────
+# rule_files:
+#   - "alert_rules.yml"
+
+# ── Scrape Jobs ─────────────────────────────────────────────────────────────
+scrape_configs:
+
+  # ── Prometheus self-monitoring ───────────────────────────────────────────
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # ── API Gateway Service (port 8081) ─────────────────────────────────────
+  - job_name: 'gateway'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 15s
+    static_configs:
+      - targets: ['172.17.0.1:8081']
+        labels:
+          service: 'service-gateway'
+          app: 'service-gateway'
+          phase: 'layer1'
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        replacement: 'service-gateway:8081'
+
+  # ── Search Service (port 8082) ───────────────────────────────────────────
+  - job_name: 'search'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 15s
+    static_configs:
+      - targets: ['172.17.0.1:8082']
+        labels:
+          service: 'service-search'
+          app: 'service-search'
+          phase: 'layer1'
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        replacement: 'service-search:8082'
+
+  # ── Media/File Processing Service (port 8083) ────────────────────────────
+  - job_name: 'media'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 15s
+    static_configs:
+      - targets: ['172.17.0.1:8083']
+        labels:
+          service: 'service-media'
+          app: 'service-media'
+          phase: 'layer1'
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        replacement: 'service-media:8083'
+
+  # ── Recommendation/Feed Service (port 8084) ──────────────────────────────
+  - job_name: 'recommendation'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 15s
+    static_configs:
+      - targets: ['172.17.0.1:8084']
+        labels:
+          service: 'service-recommendation'
+          app: 'service-recommendation'
+          phase: 'layer1'
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        replacement: 'service-recommendation:8084'

@@ -1,0 +1,78 @@
+# ============================================================
+# Grafana Loki Configuration — AI Observability Platform
+# Phase 2: Data Infrastructure
+#
+# Stores logs from all 4 Spring Boot services sent via the
+# Loki4j Logback appender configured in Phase 1.
+#
+# Storage: filesystem (development mode)
+# Retention: 7 days
+# HTTP port: 3100
+# ============================================================
+
+auth_enabled: false
+
+server:
+  http_listen_port: 3100
+  grpc_listen_port: 9096
+  log_level: warn
+
+# ── Common configuration shared across components ─────────────────────────
+common:
+  instance_addr: 127.0.0.1
+  path_prefix: /loki
+  storage:
+    filesystem:
+      chunks_directory: /loki/chunks
+      rules_directory: /loki/rules
+  replication_factor: 1
+  ring:
+    kvstore:
+      store: inmemory
+
+# ── Query range configuration ─────────────────────────────────────────────
+query_range:
+  results_cache:
+    cache:
+      embedded_cache:
+        enabled: true
+        max_size_mb: 100
+
+# ── Schema configuration ─────────────────────────────────────────────────
+schema_config:
+  configs:
+    - from: 2024-01-01
+      store: tsdb
+      object_store: filesystem
+      schema: v13
+      index:
+        prefix: index_
+        period: 24h
+
+# ── Ruler (alerting rules — placeholder for Phase 3) ─────────────────────
+ruler:
+  alertmanager_url: http://localhost:9093
+
+# ── Ingester limits ───────────────────────────────────────────────────────
+limits_config:
+  # Reject logs older than 1 hour (prevents data accumulation issues)
+  reject_old_samples: true
+  reject_old_samples_max_age: 1h
+  # Allow out-of-order ingestion (useful when services restart)
+  allow_structured_metadata: true
+  # Retention period: 7 days
+  retention_period: 168h
+
+# ── Compactor (handles retention enforcement) ────────────────────────────
+compactor:
+  working_directory: /loki/compactor
+  compaction_interval: 10m
+  retention_enabled: true
+  retention_delete_delay: 2h
+  retention_delete_worker_count: 150
+  delete_request_store: filesystem
+
+# ── Table manager ────────────────────────────────────────────────────────
+table_manager:
+  retention_deletes_enabled: true
+  retention_period: 168h   # 7 days
