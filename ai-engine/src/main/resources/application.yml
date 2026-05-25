@@ -48,14 +48,12 @@ spring:
 
   # Spring AI — Gemini configuration (Phase 3)
   ai:
-    vertex:
-      ai:
-        gemini:
-          project-id: ${GOOGLE_CLOUD_PROJECT_ID:your-project-id}
-          location: us-central1
-          chat:
-            options:
-              model: gemini-1.5-pro
+    openai:
+      api-key: ${GOOGLE_GEMINI_API_KEY:AIzaSyCHcDzwDBYk7yxsCwsJze1UNCPAqYVD3ag}
+      base-url: https://generativelanguage.googleapis.com/v1beta/openai/
+      chat:
+        options:
+          model: gemini-1.5-pro
 
 management:
   endpoints:
