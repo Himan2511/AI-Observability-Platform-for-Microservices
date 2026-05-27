@@ -5,9 +5,8 @@ import { useAuth } from './context/AuthContext';
 import { useWebSocket } from './hooks/useWebSocket';
 import Login from './pages/Login';
 import MainLayout from './layouts/MainLayout';
-
-// Placeholder for Checkpoint 2
-const Dashboard = () => <div style={{ padding: '2rem' }}>Dashboard coming soon...</div>;
+import Dashboard from './pages/Dashboard';
+import IncidentDetail from './pages/IncidentDetail';
 
 const PrivateRoute = ({ children }) => {
   const { user } = useAuth();
@@ -34,7 +33,11 @@ const AppContent = () => {
           element={
             <PrivateRoute>
               <MainLayout>
-                <Dashboard />
+                <Routes>
+                  <Route path="/" element={<Dashboard />} />
+                  <Route path="/incidents/:id" element={<IncidentDetail />} />
+                  <Route path="/incidents" element={<div style={{padding:'2rem'}}>Incident List (Coming Soon)</div>} />
+                </Routes>
               </MainLayout>
             </PrivateRoute>
           } 
